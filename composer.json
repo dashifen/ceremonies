@@ -1,0 +1,26 @@
+{
+    "name": "dashifen/ceremonies",
+    "description": "A WordPress custom post type for the ceremonies on https://memoriam.services.",
+    "minimum-stability": "stable",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David Dashifen Kees",
+            "email": "dashifen@dashifen.com",
+            "role": "developer"
+        }
+    ],
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Dashifen\\Ceremonies\\": "src"
+        }
+    },
+    "require": {
+        "dashifen/wp-handler": "^9.5"
+    }
+}
