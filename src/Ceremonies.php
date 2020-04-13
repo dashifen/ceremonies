@@ -37,12 +37,12 @@ class Ceremonies extends AbstractPluginHandler
         $this->registerTaxonomy();
         
         if (self::isDebug() || current_action() !== 'init') {
-        
+            
             // either if we're debugging or if this action isn't the init
             // action, we flush our rules.  the latter condition covers the
             // activation of the plugin since it's only then and the init
             // hook that we do this.
-        
+            
             flush_rewrite_rules();
         }
     }
@@ -69,7 +69,7 @@ class Ceremonies extends AbstractPluginHandler
             'parent_item_colon'     => 'Parent ' . $singular,
             'all_items'             => 'All ' . $plural,
             'add_new_item'          => 'Add New ' . $singular,
-            'add_new'               => 'Add New',
+            'add_new'               => 'Add New ' . $singular,
             'new_item'              => 'New ' . $singular,
             'edit_item'             => 'Edit ' . $singular,
             'update_item'           => 'Update ' . $singular,
@@ -95,7 +95,6 @@ class Ceremonies extends AbstractPluginHandler
             'menu_icon'           => 'dashicons-groups',
             'description'         => 'A Memoriam Services ' . $singular,
             'supports'            => ['title', 'editor', 'thumbnail', 'revisions'],
-            'taxonomies'          => ['category'],
             'capability_type'     => 'page',
             'hierarchical'        => false,
             'exclude_from_search' => false,
@@ -111,7 +110,7 @@ class Ceremonies extends AbstractPluginHandler
             'menu_position'       => 5,
         ];
         
-        register_post_type('post_type', $args);
+        register_post_type('ceremony', $args);
     }
     
     /**
@@ -130,7 +129,7 @@ class Ceremonies extends AbstractPluginHandler
         $labels = [
             'name'                       => $plural,
             'singular_name'              => $singular,
-            'menu_name'                  => $singular,
+            'menu_name'                  => $plural,
             'all_items'                  => 'All ' . $plural,
             'parent_item'                => 'Parent ' . $singular,
             'parent_item_colon'          => 'Parent ' . $singular . ':',
@@ -152,9 +151,11 @@ class Ceremonies extends AbstractPluginHandler
         
         $args = [
             'labels'            => $labels,
-            'hierarchical'      => false,
             'show_tagcloud'     => false,
-            'rewrite'           => false,
+            'rewrite'           => [
+                'slug' => 'ceremonies'
+            ],
+            'hierarchical'      => true,
             'public'            => true,
             'show_ui'           => true,
             'show_admin_column' => true,
