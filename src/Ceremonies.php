@@ -2,6 +2,7 @@
 
 namespace Dashifen\Ceremonies;
 
+use WP_Term;
 use Dashifen\WPHandler\Handlers\HandlerException;
 use Dashifen\WPHandler\Handlers\Plugins\AbstractPluginHandler;
 
@@ -21,6 +22,8 @@ class Ceremonies extends AbstractPluginHandler
         if (!$this->isInitialized()) {
             $this->registerActivationHook('registrations');
             $this->addAction('init', 'registrations');
+            $this->addAction('template_redirect', 'redirectOnSingleCeremony');
+            $this->addFilter('template_include', 'includeCeremonyTemplates');
         }
     }
     
@@ -58,7 +61,6 @@ class Ceremonies extends AbstractPluginHandler
     {
         $singular = 'Ceremony';
         $plural = 'Ceremonies';
-        
         $labels = [
             'name'                  => $plural,
             'singular_name'         => $singular,
@@ -124,8 +126,6 @@ class Ceremonies extends AbstractPluginHandler
     {
         $singular = 'Ceremony Type';
         $plural = 'Ceremony Types';
-        
-        
         $labels = [
             'name'                       => $plural,
             'singular_name'              => $singular,
@@ -164,5 +164,88 @@ class Ceremonies extends AbstractPluginHandler
         ];
         
         register_taxonomy('ceremony_type', ['ceremony'], $args);
+    }
+    
+    /**
+     * redirectOnSingleCeremony
+     *
+     * If this is a ceremony type taxonomy page but there's only one ceremony
+     * within that type, then we redirect to that ceremony's URL instead of
+     * showing the tax page with one link on it.
+     *
+     * @return void
+     * @noinspection SqlNoDataSourceInspection
+     * @noinspection SqlCheckUsingColumns
+     * @noinspection SqlResolve
+     */
+    protected function redirectOnSingleCeremony (): void
+    {
+        global $wpdb;
+        if (is_tax('ceremony_type')) {
+            /** @var WP_Term $term */
+            
+            // if this is the taxonomy archive for a ceremony_type term,
+            // the get_queried_object will return a WP_Term object.  with
+            // that we can see how many ceremonies are linked to this term.
+            // if that count is one, then we redirect to that single ceremony
+            // instead of staying here.
+            
+            $term = get_queried_object();
+            $sql = <<< SQL
+                SELECT ID
+                FROM wp_posts
+                WHERE ID IN (
+                    SELECT object_id
+                    FROM wp_term_relationships
+                    INNER JOIN wp_term_taxonomy USING (term_taxonomy_id)
+                    WHERE taxonomy = 'ceremony_type'
+                    AND term_taxonomy_id = %d
+                )
+SQL;
+            
+            $statement = $wpdb->prepare($sql, $term->term_taxonomy_id);
+            $posts = $wpdb->get_col($statement);
+            
+            // now, if the size of our selected posts is exactly one, we'll
+            // get it's permalink and try to redirect to it.  as long as we
+            // can do so, we halt the execution of this request and do the
+            // redirection.  we redirect with a 303 See Other status which
+            // is a temporary redirection that is never cached according to
+            // the spec.
+            
+            if (sizeof($posts) === 1) {
+                $permalink = get_permalink($posts[0]);
+                $success = wp_safe_redirect($permalink, 303);
+                if ($success) {
+                    die;
+                }
+            }
+        }
+    }
+    
+    /**
+     * includeCeremonyTemplates
+     *
+     * Identifies single ceremonies and ceremony_type archives and includes
+     * our custom templates for them.  These templates are based on the Neve
+     * theme which we use on the Memoriam Services site.
+     *
+     * @param string $template
+     *
+     * @return string
+     */
+    protected function includeCeremonyTemplates (string $template): string
+    {
+        $pluginDir = untrailingslashit($this->getPluginDir());
+        
+        if (is_tax('ceremony_type')) {
+            return $pluginDir . '/taxonomy-ceremony_type.php';
+        }
+        
+        if (is_single('ceremony')) {
+            return $pluginDir . '/single-ceremony.php';
+        }
+        
+        return $template;
     }
 }
