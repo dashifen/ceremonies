@@ -2,7 +2,7 @@
     "name": "dashifen/ceremonies",
     "description": "A WordPress custom post type for the ceremonies on https://memoriam.services.",
     "minimum-stability": "stable",
-    "type": "library",
+    "type": "wordpress-plugin",
     "license": "MIT",
     "authors": [
         {
