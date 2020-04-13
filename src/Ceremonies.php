@@ -19,12 +19,42 @@ class Ceremonies extends AbstractPluginHandler
     public function initialize (): void
     {
         if (!$this->isInitialized()) {
-            $this->registerActivationHook('registerPostType');
-            $this->addAction('init', 'registerPostType');
+            $this->registerActivationHook('registrations');
+            $this->addAction('init', 'registrations');
         }
     }
     
-    protected function registerPostType ()
+    /**
+     * registrations
+     *
+     * Registers our post type and taxonomy.
+     *
+     * @return void
+     */
+    protected function registrations (): void
+    {
+        $this->registerPostType();
+        $this->registerTaxonomy();
+        
+        if (self::isDebug() || current_action() !== 'init') {
+        
+            // either if we're debugging or if this action isn't the init
+            // action, we flush our rules.  the latter condition covers the
+            // activation of the plugin since it's only then and the init
+            // hook that we do this.
+        
+            flush_rewrite_rules();
+        }
+    }
+    
+    /**
+     * registerPostType
+     *
+     * Registers the ceremony post type.
+     *
+     * @return void
+     */
+    private function registerPostType (): void
     {
         $singular = 'Ceremony';
         $plural = 'Ceremonies';
@@ -82,14 +112,56 @@ class Ceremonies extends AbstractPluginHandler
         ];
         
         register_post_type('post_type', $args);
-        if (self::isDebug() || current_action() !== 'init') {
-            
-            // either if we're debugging or if this action isn't the init
-            // action, we flush our rules.  the latter condition covers the
-            // activation of the plugin since it's only then and the init
-            // hook that we do this.
-            
-            flush_rewrite_rules();
-        }
+    }
+    
+    /**
+     * registerTaxonomy
+     *
+     * Registers the ceremony_type taxonomy.
+     *
+     * @return void
+     */
+    private function registerTaxonomy (): void
+    {
+        $singular = 'Ceremony Type';
+        $plural = 'Ceremony Types';
+        
+        
+        $labels = [
+            'name'                       => $plural,
+            'singular_name'              => $singular,
+            'menu_name'                  => $singular,
+            'all_items'                  => 'All ' . $plural,
+            'parent_item'                => 'Parent ' . $singular,
+            'parent_item_colon'          => 'Parent ' . $singular . ':',
+            'new_item_name'              => 'New ' . $singular,
+            'add_new_item'               => 'Add New ' . $singular,
+            'edit_item'                  => 'Edit ' . $singular,
+            'update_item'                => 'Update ' . $singular,
+            'view_item'                  => 'View ' . $singular,
+            'separate_items_with_commas' => 'Separate ' . strtolower($plural) . ' with commas',
+            'add_or_remove_items'        => 'Add or remove ' . $plural,
+            'choose_from_most_used'      => 'Choose from the most used',
+            'popular_items'              => 'Popular ' . $plural,
+            'search_items'               => 'Search ' . $plural,
+            'not_found'                  => 'Not Found',
+            'no_terms'                   => 'No ' . $plural,
+            'items_list'                 => $plural . ' list',
+            'items_list_navigation'      => $plural . ' list navigation',
+        ];
+        
+        $args = [
+            'labels'            => $labels,
+            'hierarchical'      => false,
+            'show_tagcloud'     => false,
+            'rewrite'           => false,
+            'public'            => true,
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            'show_in_nav_menus' => true,
+            'show_in_rest'      => true,
+        ];
+        
+        register_taxonomy('ceremony_type', ['ceremony'], $args);
     }
 }
