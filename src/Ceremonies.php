@@ -64,7 +64,7 @@ class Ceremonies extends AbstractPluginHandler
             'label'               => $singular,
             'menu_icon'           => 'dashicons-groups',
             'description'         => 'A Memoriam Services ' . $singular,
-            'supports'            => ['title', 'editor', 'thumbnail', 'revisions', 'page-attributes'],
+            'supports'            => ['title', 'editor', 'thumbnail', 'revisions'],
             'taxonomies'          => ['category'],
             'capability_type'     => 'page',
             'hierarchical'        => false,
