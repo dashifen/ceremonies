@@ -236,14 +236,14 @@ SQL;
      */
     protected function includeCeremonyTemplates (string $template): string
     {
-        $pluginDir = untrailingslashit($this->getPluginDir());
+        $pluginDir = untrailingslashit($this->getPluginDir()) . '/templates';
         
         if (is_tax('ceremony_type')) {
-            return $pluginDir . '/taxonomy-ceremony_type.php';
+            $template = $pluginDir . '/taxonomy-ceremony_type.php';
         }
         
-        if (is_single('ceremony')) {
-            return $pluginDir . '/single-ceremony.php';
+        if (is_singular('ceremony')) {
+            $template = $pluginDir . '/single-ceremony.php';
         }
         
         return $template;
