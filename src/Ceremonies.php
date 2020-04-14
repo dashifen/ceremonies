@@ -255,6 +255,7 @@ SQL;
     {
         if ($query->is_tax('ceremony_type')) {
             $query->set('orderby', 'title');
+            $query->set('order', 'ASC');
         }
         
         return $query;
