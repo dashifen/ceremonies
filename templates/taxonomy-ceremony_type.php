@@ -7,7 +7,7 @@ get_header();
   <div class="<?php echo esc_attr($container_class); ?> archive-container">
     <div class="row">
         <?php do_action('neve_do_sidebar', 'blog-archive', 'left'); ?>
-      <div class="nv-index-posts blog col">
+      <div class="nv-index-posts blog col nv-content-wrap">
           <?php
           do_action('neve_before_loop');
           do_action('neve_page_header', 'index');
@@ -37,7 +37,7 @@ get_header();
                         <h2 id="ceremony-title-<?= $post->ID ?>"><?php the_title() ?></h2>
                       </a>
                     </header>
-                    <figure class="aligncenter size-medium">
+                    <figure class="aligncenter size-medium wp-block-image">
                       <a href="<?= $acfFields['ceremony'] ?>">
                         <img class="wp-image-<?= $thId ?>" src="<?= $thUrl ?>" alt="<?= $thAlt ?>">
                       </a>

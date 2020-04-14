@@ -5,7 +5,7 @@
  * Description: A WordPress custom post type for the ceremonies on https://memoriam.services.
  * Author URI: mailto:dashifen@dashifen.com
  * Author: David Dashifen Kees
- * Version: 1.2.1
+ * Version: 1.2.2
  *
  * @noinspection PhpStatementHasEmptyBodyInspection
  * @noinspection PhpIncludeInspection

@@ -3,6 +3,7 @@
 namespace Dashifen\Ceremonies;
 
 use WP_Term;
+use WP_Query;
 use Dashifen\WPHandler\Handlers\HandlerException;
 use Dashifen\WPHandler\Handlers\Plugins\AbstractPluginHandler;
 
@@ -24,6 +25,7 @@ class Ceremonies extends AbstractPluginHandler
             $this->addAction('init', 'registrations');
             $this->addAction('template_redirect', 'redirectOnSingleCeremony');
             $this->addFilter('template_include', 'includeCeremonyTemplates');
+            $this->addFilter('pre_get_posts', 'reorderCeremonies');
         }
     }
     
@@ -247,5 +249,14 @@ SQL;
         }
         
         return $template;
+    }
+    
+    protected function reorderCeremonies (WP_Query $query): WP_Query
+    {
+        if ($query->is_tax('ceremony_type')) {
+            $query->set('orderby', 'title');
+        }
+        
+        return $query;
     }
 }
