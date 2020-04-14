@@ -23,8 +23,7 @@ get_header();
           <?php } ?>
 
         <h1><?php the_title() ?></h1>
-        <p><small>By: <?= $acfFields['ceremony_author']['display_name'] ?></small></p>
-          <?= apply_filters('the_content', $post->post_content) ?>
+        <?= apply_filters('the_content', $post->post_content) ?>
 
         <h2>Download Ceremony</h2>
         <p><a href="<?= $acfFields['ceremony'] ?>">Download <?= get_the_title() ?></a></p>

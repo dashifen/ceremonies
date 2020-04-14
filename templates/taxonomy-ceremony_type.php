@@ -14,6 +14,13 @@ get_header();
           do_action('neve_before_posts_loop');
           
           $description = term_description();
+          $taxonomyPhoto = get_field('ceremony_term_photo', $term);
+          $taxonomyCredit = get_field('ceremony_term_photo_credit', $term);
+          
+          echo '<pre>' . print_r($taxonomyPhoto, true) . '</pre>';
+          
+          
+          
           echo str_replace(
               'CC-BY-NC-SA',
               '<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA</a>',
@@ -45,6 +52,7 @@ get_header();
                           <?= $acfFields['ceremony_photo_caption'] ?>
                       </figcaption>
                     </figure>
+                    <?= $acfFields['ceremony_excerpt'] ?>
                   </article>
                 
                 <?php } ?>
