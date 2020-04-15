@@ -16,12 +16,12 @@ get_header();
           $description = term_description();
           $taxonomyPhoto = get_field('ceremony_term_photo', $term);
           $taxonomyCredit = get_field('ceremony_term_photo_credit', $term);
-          if ($taxonomyPhoto && $taxonomyCredit) { ?>
+          //if ($taxonomyPhoto && $taxonomyCredit) { ?>
             <figure class="alignright size-medium wp-block-image">
               <img class="wp-image-<?= $taxonomyPhoto['ID'] ?>" src="<?= $taxonomyPhoto['sizes']['medium'] ?>" alt="<?= $taxonomyPhoto['alt'] ?>">
               <figcaption class="aligncenter"><?= $taxonomyCredit ?></figcaption>
             </figure>
-          <?php }
+          <?php // }
           
           echo str_replace(
               'CC-BY-NC-SA',
