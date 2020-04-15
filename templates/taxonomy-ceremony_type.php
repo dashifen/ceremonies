@@ -70,7 +70,9 @@ get_header();
 <style>
     .ceremonies {
         display: grid;
+        grid-gap: 3rem;
         grid-template-columns: 1fr 1fr;
+        margin: 3rem 0;
     }
 </style>
 
