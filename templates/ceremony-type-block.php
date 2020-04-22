@@ -26,7 +26,7 @@ if (!($term instanceof WP_Term)) {
                      height="<?= $term['ceremony_term_photo']['sizes']['medium_height'] ?>"
                      alt="<?= $term['ceremony_term_photo']['alt'] ?>">
             </a>
-            
+
             <figcaption class="aligncenter">
                 Photo credit:
                 <a href="<?= $term['ceremony_term_photo_credit']['ceremony_term_photo_credit_photographer_link'] ?>">

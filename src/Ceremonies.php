@@ -215,17 +215,17 @@ class Ceremonies extends AbstractPluginHandler
             $term = get_queried_object();
             $sql = <<< SQL
                 SELECT ID
-                FROM wp_posts
+                FROM $wpdb->posts
                 WHERE ID IN (
                     SELECT object_id
-                    FROM wp_term_relationships
-                    INNER JOIN wp_term_taxonomy USING (term_taxonomy_id)
+                    FROM $wpdb->term_relationships
+                    INNER JOIN $wpdb->term_taxonomy  USING (term_taxonomy_id)
                     WHERE taxonomy = 'ceremony_type'
-                    AND term_taxonomy_id = %d
+                    AND term_taxonomy_id = $term->term_taxonomy_id
                 )
 SQL;
             
-            $statement = $wpdb->prepare($sql, $term->term_taxonomy_id);
+            $statement = $wpdb->prepare($sql, );
             $posts = $wpdb->get_col($statement);
             
             // now, if the size of our selected posts is exactly one, we'll
