@@ -21,6 +21,6 @@
         }
     },
     "require": {
-        "dashifen/wp-handler": "^9.5"
+        "dashifen/wp-handler": "^10"
     }
 }
