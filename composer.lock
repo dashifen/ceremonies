@@ -44,6 +44,40 @@
             "time": "2020-07-29T15:00:49+00:00"
         },
         {
+            "name": "dashifen/debugging",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dashifen/debugging.git",
+                "reference": "2443dbf994351e94ffa36ea992b1a5b8b87250e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dashifen/debugging/zipball/2443dbf994351e94ffa36ea992b1a5b8b87250e8",
+                "reference": "2443dbf994351e94ffa36ea992b1a5b8b87250e8",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dashifen\\Debugging\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Dashifen Kees",
+                    "email": "dashifen@dashifen.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "A PHP Trait that defines static methods used for on-screen debugging.",
+            "time": "2020-08-02T14:27:05+00:00"
+        },
+        {
             "name": "dashifen/exception",
             "version": "1.2.0",
             "source": {
@@ -83,22 +117,22 @@
         },
         {
             "name": "dashifen/repository",
-            "version": "2.0.4",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dashifen/repository.git",
-                "reference": "2d3e0d1b9b96908c0aeed3a730123bd26eb9f344"
+                "reference": "83ce68039cc5c0cae1c35c3da80d9d3e23b57d37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dashifen/repository/zipball/2d3e0d1b9b96908c0aeed3a730123bd26eb9f344",
-                "reference": "2d3e0d1b9b96908c0aeed3a730123bd26eb9f344",
+                "url": "https://api.github.com/repos/dashifen/repository/zipball/83ce68039cc5c0cae1c35c3da80d9d3e23b57d37",
+                "reference": "83ce68039cc5c0cae1c35c3da80d9d3e23b57d37",
                 "shasum": ""
             },
             "require": {
                 "dashifen/exception": "^1",
                 "ext-json": "*",
-                "php": ">=7.3"
+                "php": ">=7.4"
             },
             "type": "library",
             "autoload": {
@@ -118,7 +152,7 @@
                 }
             ],
             "description": "An object with read-only protected properties from which other objects can be extened.",
-            "time": "2020-01-24T18:43:36+00:00"
+            "time": "2020-07-29T15:21:59+00:00"
         },
         {
             "name": "dashifen/transformer",
@@ -159,24 +193,62 @@
             "time": "2020-03-11T14:56:21+00:00"
         },
         {
-            "name": "dashifen/wp-handler",
-            "version": "10.0.0",
+            "name": "dashifen/wp-debugging",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dashifen/wp-handler.git",
-                "reference": "24a45677779a920b35bd1baa26fc9a37bc454df4"
+                "url": "https://github.com/dashifen/wp-debugging.git",
+                "reference": "ace122de19a558bf2596d809986b70359a4d7026"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dashifen/wp-handler/zipball/24a45677779a920b35bd1baa26fc9a37bc454df4",
-                "reference": "24a45677779a920b35bd1baa26fc9a37bc454df4",
+                "url": "https://api.github.com/repos/dashifen/wp-debugging/zipball/ace122de19a558bf2596d809986b70359a4d7026",
+                "reference": "ace122de19a558bf2596d809986b70359a4d7026",
+                "shasum": ""
+            },
+            "require": {
+                "dashifen/debugging": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dashifen\\WPDebugging\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "David Dashifen Kees",
+                    "email": "dashifen@dashifen.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "A PHP trait that can be used by other objects for on-screen debugging within a WordPress environment.",
+            "time": "2020-08-02T15:02:40+00:00"
+        },
+        {
+            "name": "dashifen/wp-handler",
+            "version": "10.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dashifen/wp-handler.git",
+                "reference": "47d71e6664b86ab997c9e84fcbc9a7c3f1566cd9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dashifen/wp-handler/zipball/47d71e6664b86ab997c9e84fcbc9a7c3f1566cd9",
+                "reference": "47d71e6664b86ab997c9e84fcbc9a7c3f1566cd9",
                 "shasum": ""
             },
             "require": {
                 "dashifen/collection": "^2",
                 "dashifen/exception": "^1",
-                "dashifen/repository": "^2",
+                "dashifen/repository": "^3",
                 "dashifen/transformer": "^2",
+                "dashifen/wp-debugging": "^1",
                 "php": ">=7.4"
             },
             "type": "project",
@@ -197,7 +269,7 @@
                 }
             ],
             "description": "An object to define handlers for various WordPress action and filter hooks using protected methods. ",
-            "time": "2020-07-29T15:18:10+00:00"
+            "time": "2020-08-13T04:37:04+00:00"
         }
     ],
     "packages-dev": [],
