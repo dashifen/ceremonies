@@ -1,24 +1,18 @@
 <?php
-
 /**
  * Plugin Name: Ceremonies
  * Description: A WordPress custom post type for the ceremonies on https://memoriam.services.
  * Author URI: mailto:dashifen@dashifen.com
  * Author: David Dashifen Kees
- * Version: 1.3.1
- *
- * @noinspection PhpStatementHasEmptyBodyInspection
- * @noinspection PhpIncludeInspection
+ * Version: 2.0.0
  */
 
 use Dashifen\Ceremonies\Ceremonies;
 use Dashifen\WPHandler\Handlers\HandlerException;
 
-if (file_exists($autoloader = dirname(ABSPATH) . '/deps/vendor/autoload.php'));
-elseif ($autoloader = file_exists(dirname(ABSPATH) . '/vendor/autoload.php'));
-elseif ($autoloader = file_exists(ABSPATH . 'vendor/autoload.php'));
-else $autoloader = 'vendor/autoload.php';
-require_once $autoloader;
+if (class_exists('Dashifen\Ceremonies\Ceremonies')) {
+  require_once 'vendor/autoload.php';
+}
 
 (function() {
     try {
